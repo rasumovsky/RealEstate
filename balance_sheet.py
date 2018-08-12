@@ -2,11 +2,15 @@ import display_utils as du
 import numpy as np
 
 class balance_sheet:
-    
-    # TODO(harda) add balance sheet to investment_property class.
-
+    """
+    A class for tracking the income and expenses related to a property.
+    """
     def __init__(self, mortgage):
         """
+        Initializes the balance sheet class with a mortgage. The mortgage will
+        create mortage expense and one time costs in the balance sheet.
+        Args:
+          * mortgage: the mortgage tied to the balance sheet and property.
         """
         self.one_time_costs_ = {}
         self.monthly_income_ = {}
@@ -157,24 +161,13 @@ class balance_sheet:
         """
         Print income, expenses, cash flow, RoI.
         """
-        print('\n----- Income -----')
         income_names, income_values = self.calculate_total_income()
-        for i in range(len(income_names)):
-            print('\t', income_names[i], str('\t$%2.2f' % income_values[i]))
-        print('\tTotal: \t $%2.2f' % np.sum(income_values))
-
-        print('\n----- Expenses -----')
+        du.create_table(income_names, income_values, 'Income')
         expense_names, expense_values = self.calculate_total_expenses()
-        for i in range(len(expense_names)):
-            print('\t', expense_names[i], str('\t$%2.2f' % expense_values[i]))
-        print('\tTotal: \t $%2.2f' % np.sum(expense_values))
-
-        print('\n----- Capital expenditures -----')
+        du.create_table(expense_names, expense_values, 'Expenses')
         cap_ex_names, cap_ex_values = (
             self.calculate_monthly_capital_expenditures())
-        for i in range(len(cap_ex_names)):
-            print('\t', cap_ex_names[i], str('\t$%2.2f' % cap_ex_values[i]))
-        print('\tTotal: \t $%2.2f' % np.sum(cap_ex_values))
+        du.create_table(cap_ex_names, cap_ex_values, 'Capital Expenditures')
 
         # 3. Cash Flow
         print('\n----- Cash Flow -----')

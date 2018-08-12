@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy as scipy
+from prettytable import PrettyTable
 
 colors = ['#581845', '#900C3F', '#C70039', '#FF5733', '#FFC300', '#DAF7A6']
 
@@ -17,3 +18,13 @@ def plot_pie(names, values):
     plt.tight_layout()
     plt.show()
 
+def create_table(names, values, title):
+    x = PrettyTable()
+    x.field_names = ['Item', 'Amount']
+    for i in range(len(names)):
+        x.add_row([names[i], str('$%2.2f' % values[i])])
+    x.add_row(['', ''])
+    x.add_row(['Total', str('$%2.2f' % np.sum(values))])
+    x.align["Item"] = "l"
+    x.align["Amount"] = "r"
+    print(x.get_string(title=title))

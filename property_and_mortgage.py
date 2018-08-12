@@ -250,33 +250,33 @@ class investment_property:
         """
         results, _ = self.calculate_all(additional_monthly_payment)
         fig, ax = plt.subplots(figsize=(10,5))
-        ax.plot(results['months'], results['debts'], label='Debt', color='r')
-        ax.plot(results['months'], results['values'], label='Property value',
-                color='b')
-        ax.plot(results['months'], results['equities'], label='Equity', color='g')
+        years = [month / 12.0 for month in results['months']]
+        ax.plot(years, results['debts'], label='Debt', color='r')
+        ax.plot(years, results['values'], label='Property value', color='b')
+        ax.plot(years, results['equities'], label='Equity', color='g')
         ax.fill_between(
-            results['months'], scipy.zeros(len(results['debts'])), results['debts'],
+            years, scipy.zeros(len(results['debts'])), results['debts'],
             facecolor='r', alpha=0.3)
-        ax.fill_between(
-            results['months'], scipy.zeros(len(results['values'])),
+        ax.fill_between(years, scipy.zeros(len(results['values'])),
         results['values'], facecolor='b', alpha=0.15)
         ax.fill_between(
-            results['months'], scipy.zeros(len(results['equities'])),
+            years, scipy.zeros(len(results['equities'])),
             results['equities'], facecolor='g', alpha=0.3)
         ax.legend(loc='upper left')
-        ax.set(xlabel='Months', ylabel='Value [$]', title='Equity and debt by month')
+        ax.set(xlabel='Years', ylabel='Value [$]', title='Equity and debt by month')
         ax.grid()
         plt.show()
 
     def plot_gains(self, additional_monthly_payment):
         """
-        Plots the gains.
+        Plots the capital gains.
         Args:
           * additional_monthly_payment: extra monthly payment beyond minimum.
         Returns:
           * A plot of the capital gains.
         """
         results, _ = self.calculate_all(additional_monthly_payment)
+        years = [month / 12.0 for month in results['months']]
         gains = results['equities']
         cash_flow = self.balance_sheet_.get_cash_flow()
         one_time_costs = self.balance_sheet_.get_total_one_time_costs()
@@ -284,11 +284,11 @@ class investment_property:
             gains[i] += float(i * cash_flow)
             gains[i] -= one_time_costs
         fig, ax = plt.subplots(figsize=(10,5))
-        ax.plot(results['months'], gains, label='Gains', color='g')
+        ax.plot(years, gains, label='Gains', color='g')
         ax.fill_between(
-            results['months'], scipy.zeros(len(gains)), gains, facecolor='g',
+            years, scipy.zeros(len(gains)), gains, facecolor='g',
             alpha=0.3)
-        ax.set(xlabel='Months', ylabel='Gains [$]', title='Capital gains')
+        ax.set(xlabel='Years', ylabel='Gains [$]', title='Capital gains')
         ax.grid()
         plt.show()
 
