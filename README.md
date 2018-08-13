@@ -9,4 +9,4 @@ Jupyter notebooks for real estate calculations.
 
 ## To run
 
-Use `jupyter notebook` in the terminal to open an interactive session in your browser. Execute the commands in rental_analysis.ipynb.
+Use `jupyter notebook` in the terminal to open an interactive session in your browser. Execute the commands in **rental_analysis.ipynb**.

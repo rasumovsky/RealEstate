@@ -1,4 +1,28 @@
+################################################################################
+#
+# This class stores a balance sheet  with income and expenses. The following
+# public methods are included.
+#  * init(mortgate)
+#  * add_one_time_costs(one_time_costs)
+#  * add_monthly_income(monthly_income)
+#  * add_annual_expenses(annual_expenses)
+#  * add_monthly_expenses(monthly_expenses)
+#  * add_expenses_proportional_to_rent(expenses_proportional_to_rent)
+#  * add_capital_expenditures(capital_expenditures)
+#  * get_monthly_cash_flow()
+#  * get_total_one_time_costs()
+#  * set_mortgage(self, mortgage)
+#  * calculate_monthly_capital_expenditures()
+#  * calculate_total_income()
+#  * calculate_total_expenses()
+#  * plot_expenses()
+#  * plot_capital_expenditures()
+#  * print_statement()
+#
+################################################################################
+
 import display_utils as du
+import mortgage as mort
 import numpy as np
 
 class balance_sheet:
@@ -43,7 +67,7 @@ class balance_sheet:
     def add_capital_expenditures(self, capital_expenditures):
         self.capital_expenditures_.update(capital_expenditures)
 
-    def get_cash_flow(self):
+    def get_monthly_cash_flow(self):
         income_names, income_values = self.calculate_total_income()
         expense_names, expense_values = self.calculate_total_expenses()
         return np.sum(income_values) - np.sum(expense_values)
@@ -183,3 +207,9 @@ class balance_sheet:
         print('\tTotal investment = $%2.2f' % total_investment)
         annual_roi = annual_cash_flow / total_investment
         print('\tAnnual RoI = %2.2f%%' % (100.0 * annual_roi))
+        
+        # TODO(harda) add gross rent multiplier
+        # cost / monthly income before expenses. should be around 2
+        #gross_rent_multiplier = 
+        
+        # also income expense ratio
